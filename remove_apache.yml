@@ -8,10 +8,21 @@
         name: apache2
         state: absent
 
+    - name: Play to remove docker-compose
+      apt:
+        name: docker-compose
+        state: absent
+
+    - name: Play to remove docker.io
+      apt:
+        name: docker.io
+        state: absent
+
     - name: remove php support for apache
       apt:
         name: libapache2-mod-php
         state: absent
+
     - name: Remove dependencies that are no longer required and purge their configuration files
       ansible.builtin.apt:
         autoremove: true

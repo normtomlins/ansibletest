@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Upgrade OS
+      tags: always
+      ansible.builtin.package:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Docker
+      ansible.builtin.package:
+        name: 
+          - docker.io
+          - net-tools
+          - docker-compose
+          - curl
+          - wget
+          - htop
+        state: present
+
+    - name: Ensure Docker service is started
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: yes
